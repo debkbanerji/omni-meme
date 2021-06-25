@@ -106,14 +106,17 @@ function tryGetSourceTextWithBlanks(toBeReplaced, candidateWord) {
 
 const SETUP_TEXT = 'Look '
 const TO_BE_REPLACED = 'what they need to mimic a fraction of our power'
+const WORD_LIST_TXT_URL = 'http://www.desiquintans.com/downloads/nounlist/nounlist.txt'
+// const WORD_LIST_TXT_URL = 'https://github.com/dwyl/english-words/raw/master/words.txt'
 
 // queries for a file with many english words and runs
 // tryPrintSourceTextWithBlanks for each one
 function printWordResults() {
-  request.get('https://github.com/dwyl/english-words/raw/master/words.txt', function(error, response, body) {
+  request.get(WORD_LIST_TXT_URL, function(error, response, body) {
     if (!error && response.statusCode == 200) {
       const words = body.split('\n');
       console.log(TO_BE_REPLACED);
+      let count = 0;
       body.split('\n').forEach((word) => {
         // for now, ignore the word if it isn't the same before and after sanitization
         if (word === sanitizeText(word)) {
@@ -121,9 +124,11 @@ function printWordResults() {
           if (textWithBlanks != null) {
             console.log(word)
             console.log(textWithBlanks);
+            count++;
           }
         }
       });
+      console.log(`Generated ${count} results`);
     }
   });
 }
