@@ -20,7 +20,7 @@ function lcs(sanitizedWord1, sanitizedWord2) {
       } else {
         entry = Math.max(T[i - 1][j], T[i][j - 1]);
       }
-      T[i][j] = entry
+      T[i][j] = entry;
     }
   }
 
@@ -44,7 +44,67 @@ function lcs(sanitizedWord1, sanitizedWord2) {
   return {
     lcsLength,
     word1lcsIndices
+  };
+}
+
+function sanitizeText(str) {
+  return str.replace(/[^a-zA-Z]/g, "").toLowerCase();
+}
+
+// returns true if the character would not be removed during anitization
+function wasCharacterPreserved(c) {
+  return c.match(/[a-z]/i);
+}
+
+
+function canCreateMeme(candidateWord, lcsResult) {
+  return lcsResult.lcsLength === candidateWord.length;
+}
+
+// returns the blankable character indices in the toBeReplaced text to create
+// the candidate word
+// returns null if this cannot be done
+function getBlankableCharacterIndices(toBeReplaced, candidateWord) {
+  const sanitizedCandidateWord = sanitizeText(candidateWord);
+  const lcsResult = lcs(Array.from(sanitizeText(toBeReplaced)), Array.from(sanitizedCandidateWord));
+
+  if (!canCreateMeme(sanitizedCandidateWord, lcsResult)) {
+    return null;
+  }
+
+  const {
+    word1lcsIndices
+  } = lcsResult;
+
+  const toBeReplacedArr = Array.from(toBeReplaced);
+  const blankableCharacterIndices = [];
+  // go through and return which character indices should be blanked out
+  let j = 0; // accounts for offset due to spaces, etc.
+  for (let i = 0; i < toBeReplacedArr.length; i++) {
+    if (!wasCharacterPreserved(toBeReplacedArr[i])) {
+      blankableCharacterIndices.push(i);
+    } else {
+      // j is the index in the sanitized word
+      if (!word1lcsIndices.includes(j)) {
+        blankableCharacterIndices.push(i);
+      }
+
+      // increment j since the letter exists in the sanitized word
+      j++;
+    }
+  }
+
+  return blankableCharacterIndices;
+}
+
+function tryPrintSourceTextWithBlanks(toBeReplaced, candidateWord) {
+  // if it's possible to create candidateWord by applying blanks to
+  // toBeReplaced, print toBeReplaced with blanks applied
+  const blankableCharacterIndices = getBlankableCharacterIndices(toBeReplaced, candidateWord);
+  if (blankableCharacterIndices != null) {
+    return Array.from(toBeReplaced).map((c, i) => blankableCharacterIndices.includes(i) ? '_' : c).join('');
   }
 }
 
-// console.log(lcs('aladdin', 'tangled'))
+console.log(TO_BE_REPLACED)
+console.log(tryPrintSourceTextWithBlanks(TO_BE_REPLACED, 'mower'))
