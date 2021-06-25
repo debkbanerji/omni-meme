@@ -106,6 +106,7 @@ function tryGetSourceTextWithBlanks(toBeReplaced, candidateWord) {
 
 const SETUP_TEXT = 'Look '
 const TO_BE_REPLACED = 'what they need to mimic a fraction of our power'
+// const TO_BE_REPLACED = 'Your scientists were so preoccupied with whether or not they could, they didn’t stop to think if they should.'
 const WORD_LIST_TXT_URL = 'http://www.desiquintans.com/downloads/nounlist/nounlist.txt'
 // const WORD_LIST_TXT_URL = 'https://github.com/dwyl/english-words/raw/master/words.txt'
 
@@ -115,20 +116,32 @@ function printWordResults() {
   request.get(WORD_LIST_TXT_URL, function(error, response, body) {
     if (!error && response.statusCode == 200) {
       const words = body.split('\n');
-      console.log(TO_BE_REPLACED);
-      let count = 0;
-      body.split('\n').forEach((word) => {
+      const results = body.split('\n').map((word) => {
         // for now, ignore the word if it isn't the same before and after sanitization
         if (word === sanitizeText(word)) {
           const textWithBlanks = tryGetSourceTextWithBlanks(TO_BE_REPLACED, word);
           if (textWithBlanks != null) {
-            console.log(word)
-            console.log(textWithBlanks);
-            count++;
+            return {
+              word,
+              textWithBlanks
+            }
           }
         }
+      }).filter(result => result != null);
+
+      // sort in ascending order of length
+      results.sort((r1, r2) => r1.word.length - r2.word.length);
+
+      console.log(TO_BE_REPLACED);
+      results.forEach(result => {
+        const {
+          word,
+          textWithBlanks
+        } = result;
+        console.log(word);
+        console.log(textWithBlanks);
       });
-      console.log(`Generated ${count} results`);
+      console.log(`Generated ${results.length} results`);
     }
   });
 }
