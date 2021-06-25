@@ -1,6 +1,4 @@
-const SETUP_TEXT = 'Look '
-const TO_BE_REPLACED = 'what they need to mimic a fraction of our power'
-
+const request = require('request');
 // problem we're solving - can we blank out a bunch of letters in TO_BE_REPLACED
 // such that we can generate a valid word in the lcsLength
 
@@ -58,7 +56,7 @@ function wasCharacterPreserved(c) {
 
 
 function canCreateMeme(candidateWord, lcsResult) {
-  return lcsResult.lcsLength === candidateWord.length;
+  return lcsResult.lcsLength > 0 && lcsResult.lcsLength === candidateWord.length;
 }
 
 // returns the blankable character indices in the toBeReplaced text to create
@@ -97,7 +95,7 @@ function getBlankableCharacterIndices(toBeReplaced, candidateWord) {
   return blankableCharacterIndices;
 }
 
-function tryPrintSourceTextWithBlanks(toBeReplaced, candidateWord) {
+function tryGetSourceTextWithBlanks(toBeReplaced, candidateWord) {
   // if it's possible to create candidateWord by applying blanks to
   // toBeReplaced, print toBeReplaced with blanks applied
   const blankableCharacterIndices = getBlankableCharacterIndices(toBeReplaced, candidateWord);
@@ -106,5 +104,28 @@ function tryPrintSourceTextWithBlanks(toBeReplaced, candidateWord) {
   }
 }
 
-console.log(TO_BE_REPLACED)
-console.log(tryPrintSourceTextWithBlanks(TO_BE_REPLACED, 'mower'))
+const SETUP_TEXT = 'Look '
+const TO_BE_REPLACED = 'what they need to mimic a fraction of our power'
+
+// queries for a file with many english words and runs
+// tryPrintSourceTextWithBlanks for each one
+function printWordResults() {
+  request.get('https://github.com/dwyl/english-words/raw/master/words.txt', function(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      const words = body.split('\n');
+      console.log(TO_BE_REPLACED);
+      body.split('\n').forEach((word) => {
+        // for now, ignore the word if it isn't the same before and after sanitization
+        if (word === sanitizeText(word)) {
+          const textWithBlanks = tryGetSourceTextWithBlanks(TO_BE_REPLACED, word);
+          if (textWithBlanks != null) {
+            console.log(word)
+            console.log(textWithBlanks);
+          }
+        }
+      });
+    }
+  });
+}
+
+printWordResults();
