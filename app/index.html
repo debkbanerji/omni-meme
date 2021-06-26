@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" crossorigin="anonymous">
+  <link href="favicon.png" rel="icon" type="image/x-icon" />
+
+  <title>Omni Meme</title>
+
+  <meta property="og:title" content="Omni Meme" />
+  <meta property="og:description" content="Generating many memes using dynamic programming" />
+  <!-- <meta property="og:image" content="https://omni-meme.debkbanerji.com/favicon.png" /> TODO: Add image -->
+
+  <style>
+    a {
+      /* text-decoration: none !important; */
+    }
+
+    .btn-link {
+      /* text-decoration: none !important; */
+      width: 100%;
+      border-width: 0
+    }
+
+    .card {
+      background-color: rgba(255, 255, 255, 0.6);
+    }
+
+    .card-header {
+      padding: 0;
+      border: 0;
+    }
+
+    .accordion-card {
+      margin-bottom: 4px;
+    }
+
+    .accordion-card-body {
+      padding: 4px;
+    }
+
+    .progress-bar.indeterminate {
+      position: relative;
+      animation: progress-indeterminate 3s linear infinite;
+    }
+
+    @keyframes progress-indeterminate {
+      from {
+        left: -50%;
+        width: 50%;
+      }
+
+      to {
+        left: 100%;
+        width: 50%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div style="margin: 10px; padding-bottom: 30px; overflow: hidden; min-height: calc(100vh - 60px);">
+    <h1 style="margin-bottom: 0; margin-left: 4px">Omni Meme</h1>
+    <div style="margin-bottom: 10px; margin-left: 6px">
+      <div style="margin-bottom: 5px;">
+        <small>
+          <span>Made with ♥ by Deb</span> &bull;
+          <a href="https://github.com/debkbanerji/omni-meme" target="_blank">Source Code</a>
+        </small>
+      </div>
+    </div>
+
+    <div>
+      <div class="progress" style="height:8px; margin-bottom: 2px" id="loading-progress" hidden>
+        <div class="progress-bar indeterminate style=" height:10px"">
+        </div>
+      </div>
+      <div style="height:8px; margin-bottom: 2px" id="universal-loading-progress-complement">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <div class="card" style="padding: 10px; margin-bottom: 10px">
+          <canvas id="main-meme-canvas"></canvas>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="card" style="padding: 10px; margin-bottom: 10px">
+          <div id="successful-word-list"></div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="card" style="padding: 10px; margin-bottom: 10px">
+          <div id="text-input-controls"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/index.js"></script>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
