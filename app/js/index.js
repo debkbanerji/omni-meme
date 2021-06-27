@@ -2,7 +2,6 @@ const BLACKOUT_CHAR = String.fromCharCode(parseInt('2588', 16));
 const UNDERSCORE_CHAR = '_';
 const URL_REGEX = new RegExp(/^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*$)/gi);
 const IMAGE_FONT_RATIO = 0.10
-const WORD_ON_IMAGE_FONT_SCALE = 1.4;
 
 const interactionSelectors = [...document.getElementsByTagName('input')]
   .concat([...document.getElementsByTagName('textarea')])
@@ -152,8 +151,9 @@ function drawMemeWithCaption(caption, originalWord) {
 
     const wordXSelector = document.getElementById('word-position-x-slider');
     const wordYSelector = document.getElementById('word-position-y-slider');
+    const wordFontScale = document.getElementById('word-scale-slider');
     if (document.getElementById('word-on-image').checked) {
-      context.font = `${lineHeight*WORD_ON_IMAGE_FONT_SCALE}px Arial`;
+      context.font = `${lineHeight * wordFontScale.value}px Arial`;
       context.fillText(
         originalWord,
         wordXSelector.value / wordXSelector.max * img.width,
@@ -189,6 +189,7 @@ function drawMemeWithCaption(caption, originalWord) {
 [
   'font-color',
   'word-on-image',
+  'word-scale-slider',
   'word-position-x-slider',
   'word-position-y-slider'
 ].forEach(id => {
@@ -200,10 +201,5 @@ function drawMemeWithCaption(caption, originalWord) {
 
 document.getElementById('word-on-image')
   .addEventListener("change", () => {
-    [
-      'word-position-x-slider',
-      'word-position-y-slider'
-    ].forEach(id => {
-      document.getElementById(id).hidden = !document.getElementById('word-on-image').checked;
-    });
+    document.getElementById('word-image-sliders').hidden = !document.getElementById('word-on-image').checked;
   });
