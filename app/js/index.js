@@ -1,7 +1,7 @@
 const BLACKOUT_CHAR = String.fromCharCode(parseInt('2588', 16));
 const UNDERSCORE_CHAR = '_';
 const URL_REGEX = new RegExp(/^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*$)/gi);
-const IMAGE_FONT_RATIO = 0.10
+const IMAGE_FONT_RATIO = 0.05
 
 const interactionSelectors = [...document.getElementsByTagName('input')]
   .concat([...document.getElementsByTagName('textarea')])
@@ -146,7 +146,7 @@ function drawMemeWithCaption(caption, originalWord) {
 
     const textPaddingHorizontal = canvas.width * 0.03;
     const textPaddingVertical = textPaddingHorizontal;
-    const lineHeight = canvas.height * IMAGE_FONT_RATIO;
+    const lineHeight = canvas.width * IMAGE_FONT_RATIO;
     context.fillStyle = document.getElementById("font-color").value;
 
     const wordXSelector = document.getElementById('word-position-x-slider');
