@@ -34,6 +34,27 @@ document
     templateImageSelectorHidden.click();
   });
 
+const wordsTxtSelectorHidden = document.getElementById(
+  "words-txt-selector-hidden"
+);
+wordsTxtSelectorHidden.addEventListener("change", e => {
+  const reader = new FileReader();
+  reader.onload = function() {
+    const inputTextArea = document.getElementById('input-words-and-links');
+    if (inputTextArea.value.length > 0) {
+      inputTextArea.value += '\n';
+    }
+    inputTextArea.value += reader.result;
+  }
+  reader.readAsText(e.target.files[0]);
+}, false);
+
+document
+  .getElementById("words-txt-selector")
+  .addEventListener("click", () => {
+    wordsTxtSelectorHidden.click();
+  });
+
 let selectedCaptionResult = {};
 
 function submitCaptionGeneration() {

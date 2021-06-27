@@ -186,10 +186,16 @@
               </div>
               <textarea type="text" class="form-control" placeholder="Optional" id="input-words-and-links"></textarea>
             </div>
-            <small>
-              A list of additional words that the algorithm will attempt to create from the meme caption (in addition to <a href="http://www.desiquintans.com/nounlist" target="_blank">those that the app uses by default</a>)<br />
-              Each line is treated as its own word, so you can also use phrases
-            </small>
+            <div style="display: flex; justify-content: space-between;">
+              <small>
+                A list of additional words that the algorithm will attempt to create from the meme caption (in addition to <a href="http://www.desiquintans.com/nounlist" target="_blank">those that the app uses by default</a>)<br />
+                Each line is treated as its own word, so you can also use phrases
+              </small>
+              <input type="file" id="words-txt-selector-hidden" name="words-txt-selector-hidden" hidden />
+              <button class="btn btn-sm btn-outline-secondary" type="button" id="words-txt-selector" style="margin-top: 4px">
+                Import from .txt
+              </button>
+            </div>
           </div>
           <button class="btn btn-success" type="button" id="generate-memes" style="margin-top: 8px">
             Generate Memes
