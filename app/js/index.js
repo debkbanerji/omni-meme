@@ -166,6 +166,7 @@ function copyToClipboard(textToCopy) {
 }
 
 function drawMemeWithCaption(caption, originalWord) {
+  disableInteraction();
   const canvas = document.getElementById("main-meme-canvas");
   const context = canvas.getContext("2d");
   const img = new Image();
@@ -216,6 +217,7 @@ function drawMemeWithCaption(caption, originalWord) {
       .addEventListener("click", () => {
         copyToClipboard(caption);
       });
+    enableInteraction();
   };
   img.src = imageURL;
 
