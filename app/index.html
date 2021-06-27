@@ -75,15 +75,6 @@
       </div>
     </div>
 
-    <div>
-      <div class="progress" style="height:8px; margin-bottom: 2px" id="loading-progress" hidden>
-        <div class="progress-bar indeterminate style=" height:10px"">
-        </div>
-      </div>
-      <div style="height:8px; margin-bottom: 2px" id="universal-loading-progress-complement">
-      </div>
-    </div>
-
     <div class="row">
       <div class="col-12 col-md-6">
         <div class="card" style="padding: 10px; margin-bottom: 10px">
@@ -135,14 +126,22 @@ manpower
               </textarea>
             </div>
             <small>
-              A list of words that the algorithm will attempt to create from the meme caption<br/>
-              You can also provide a url for a text file filled with words<br/>
+              A list of words that the algorithm will attempt to create from the meme caption<br />
+              You can also provide a url for a text file filled with words<br />
               Each line is treated as its own word
             </small>
           </div>
+          <button class="btn btn-success" type="button" id="generate-memes" style="margin-top: 8px">
+            Generate Memes
+          </button>
+          <div>
+            <div class="progress" style="height:8px; margin-bottom: 2px" id="loading-progress" hidden>
+              <div class="progress-bar indeterminate style=" height:10px"">
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
     </div>
   </div>
 
