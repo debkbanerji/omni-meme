@@ -48,7 +48,6 @@ function generateCaptions() {
     inputWordTxtUrls,
     originalCaption,
   };
-  console.log(webWorkerInput);
 
   const worker = new Worker("js/algo-web-worker.js" +
     '?' + Math.random()
