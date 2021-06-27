@@ -99,7 +99,47 @@
 
       <div class="col-12">
         <div class="card" style="padding: 10px; margin-bottom: 10px">
-          <div id="text-input-controls"></div>
+          <h2 style="margin-bottom: 0; margin-left: 4px">Change Image/Text</h2>
+          <div id="text-input-controls">
+            <div class="input-group mb-3" style="margin-top: 8px">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Template image URL</span>
+              </div>
+              <input type="text" class="form-control" placeholder="URL" value="/assets/png/omni-man-meme-template.png">
+            </div>
+            <div class="input-group mb-3" style="margin-top: 4px">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Prefix</span>
+              </div>
+              <input type="text" class="form-control" placeholder="Optional" value="Look ">
+            </div>
+            <div class="input-group mb-3" style="margin-top: 4px">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Caption</span>
+              </div>
+              <input type="text" class="form-control" placeholder="The original meme's caption" value="what they need to mimic a fraction of our power">
+            </div>
+            <div class="input-group mb-3" style="margin-top: 4px">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Postfix</span>
+              </div>
+              <input type="text" class="form-control" placeholder="Optional" value="">
+            </div>
+            <div class="input-group mb-3" style="margin-top: 4px; margin-bottom: 2px !important; height: 100px">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Replacement Words/Links</span>
+              </div>
+              <textarea type="text" class="form-control" placeholder="Optional">
+http://www.desiquintans.com/downloads/nounlist/nounlist.txt
+manpower
+              </textarea>
+            </div>
+            <small>
+              A list of words that the algorithm will attempt to create from the meme caption<br/>
+              You can also provide a url for a text file filled with words<br/>
+              Each line is treated as its own word
+            </small>
+          </div>
         </div>
       </div>
 
