@@ -15,13 +15,10 @@ function enableInteraction() {
   interactionSelectors.forEach(item => (item.disabled = false));
 }
 
+let imageURL = '';
 
-let currentCaption = '';
-
-function generateCaptions() {
+function submitCaptionGeneration() {
   disableInteraction();
-
-
   const loadingComponent = document.getElementById(
     "loading-progress"
   );
@@ -37,8 +34,7 @@ function generateCaptions() {
   // const inputWords = inputLines.filter(line => !line.match(URL_REGEX));
   // const inputWordTxtUrls = inputLines.filter(line => line.match(URL_REGEX));
   inputWords = inputLines;
-  inputWordTxtUrls=['../assets/txt/nounlist.txt']
-
+  inputWordTxtUrls = ['../assets/txt/nounlist.txt']
 
   const originalCaption = document.getElementById('caption-input').value;
 
@@ -49,6 +45,10 @@ function generateCaptions() {
     originalCaption,
   };
 
+  imageURL = document.getElementById('input-image-url').value;
+  const prefix = document.getElementById('caption-input-prefix').value;
+  const postfix = document.getElementById('caption-input-postfix').value;
+
   const worker = new Worker("js/algo-web-worker.js" +
     '?' + Math.random()
   );
@@ -57,11 +57,40 @@ function generateCaptions() {
     const {
       data
     } = e;
-    console.log(data)
+    const results = data.results.map(result => {
+      const {
+        word,
+        blackedOutText
+      } = result;
+
+      return {
+        word,
+        caption: `${prefix}${blackedOutText.replace(UNDERSCORE_CHAR, BLACKOUT_CHAR)}${postfix}`
+      };
+    });
+    console.log(results);
     loadingComponent.hidden = true;
     enableInteraction();
+
+    // TODO: deal with the case when no captions are generated
+    const resultToDisplay = results[Math.floor(Math.random() * results.length)];
+    drawMemeWithCaption(resultToDisplay.caption);
   });
 }
 
 document.getElementById("generate-memes")
-  .addEventListener("click", generateCaptions);
+  .addEventListener("click", submitCaptionGeneration);
+
+setTimeout(submitCaptionGeneration, 500); // run this after the page loads
+
+function drawMemeWithCaption(caption) {
+  const canvas = document.getElementById("main-meme-canvas");
+  const context = canvas.getContext("2d");
+  const img = new Image();
+  img.onload = function() {
+    canvas.width = img.width;
+    canvas.height = img.height;
+    context.drawImage(img, 0, 0, img.width, img.height);
+  };
+  img.src = imageURL;
+}
