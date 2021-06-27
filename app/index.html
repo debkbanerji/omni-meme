@@ -92,17 +92,15 @@
         <div class="card" style="padding: 10px; margin-bottom: 10px">
           <h2 style="margin-bottom: 0; margin-left: 4px">Change Image/Text</h2>
           <div id="text-input-controls">
-            <div class="input-group mb-3" style="margin-top: 8px">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Template image URL</span>
-              </div>
-              <input type="text" class="form-control" placeholder="URL" id="input-image-url" value="/assets/png/omni-man-meme-template.png">
-            </div>
+            <input type="file" id="template-image-selector-hidden" name="template-image-selector-hidden" hidden />
+            <button class="btn btn-info" type="button" id="template-image-selector" style="margin-top: 8px">
+              Select Template Image
+            </button>
             <div class="input-group mb-3" style="margin-top: 4px">
               <div class="input-group-prepend">
                 <span class="input-group-text">Prefix</span>
               </div>
-              <input type="text" class="form-control" id="caption-input-prefix" placeholder="Optional" value="Look ">
+              <input type="text" class="form-control" id="caption-input-prefix" placeholder="(Optional)" value="Look ">
             </div>
             <div class="input-group mb-3" style="margin-top: 4px">
               <div class="input-group-prepend">
@@ -114,7 +112,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text">Postfix</span>
               </div>
-              <input type="text" class="form-control" id="caption-input-postfix" placeholder="Optional" value="">
+              <input type="text" class="form-control" id="caption-input-postfix" placeholder="(Optional)" value="">
             </div>
             <div class="input-group mb-3" style="margin-top: 4px; margin-bottom: 2px !important; height: 100px">
               <div class="input-group-prepend">
@@ -124,8 +122,7 @@
             </div>
             <small>
               A list of additional words that the algorithm will attempt to create from the meme caption (in addition to <a href="http://www.desiquintans.com/nounlist" target="_blank">those that the app uses by default</a>)<br />
-              <!-- You can also provide a url for a .txt file filled with words<br /> -->
-              Each line is treated as its own word
+              Each line is treated as its own word, so you can also use phrases
             </small>
           </div>
           <button class="btn btn-success" type="button" id="generate-memes" style="margin-top: 8px">

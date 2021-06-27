@@ -155,7 +155,8 @@ self.addEventListener(
         }
       }).filter(result => result != null);
 
-      // // sort in ascending order of length// results.sort((r1, r2) => r1.word.length - r2.word.length);
+      // // sort in ascending order of length
+      // results.sort((r1, r2) => r1.word.length - r2.word.length);
 
       self.postMessage({
         results

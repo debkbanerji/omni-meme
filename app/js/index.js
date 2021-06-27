@@ -15,7 +15,24 @@ function enableInteraction() {
   interactionSelectors.forEach(item => (item.disabled = false));
 }
 
-let imageURL = '';
+let imageURL = '/assets/png/omni-man-meme-template.png';
+
+const templateImageSelectorHidden = document.getElementById(
+  "template-image-selector-hidden"
+);
+templateImageSelectorHidden.addEventListener("change", e => {
+  const reader = new FileReader();
+  reader.onload = function(event) {
+    imageURL = event.target.result;
+  };
+  reader.readAsDataURL(e.target.files[0]);
+}, false);
+
+document
+  .getElementById("template-image-selector")
+  .addEventListener("click", () => {
+    templateImageSelectorHidden.click();
+  });
 
 function submitCaptionGeneration() {
   disableInteraction();
@@ -31,8 +48,6 @@ function submitCaptionGeneration() {
       line => line.length > 0
     );
 
-  // const inputWords = inputLines.filter(line => !line.match(URL_REGEX));
-  // const inputWordTxtUrls = inputLines.filter(line => line.match(URL_REGEX));
   inputWords = inputLines;
   inputWordTxtUrls = ['../assets/txt/nounlist.txt']
 
@@ -45,7 +60,6 @@ function submitCaptionGeneration() {
     originalCaption,
   };
 
-  imageURL = document.getElementById('input-image-url').value;
   const prefix = document.getElementById('caption-input-prefix').value;
   const postfix = document.getElementById('caption-input-postfix').value;
 
