@@ -81,9 +81,14 @@
         <div class="card" style="padding: 10px; margin-bottom: 10px">
           <div style="display: flex; justify-content: space-between;">
             <h3 style=" margin-left: 4px;">Working Words</h3>
-            <button class="btn btn-sm btn-outline-secondary" id="random-caption-button">
-              Random
-            </button>
+            <div style="display: flex; align-items: center;">
+              <button class="btn btn-sm btn-outline-secondary" id="original-caption-button" style="margin-right: 4px;">
+                Original
+              </button>
+              <button class="btn btn-sm btn-outline-secondary" id="random-caption-button">
+                Random
+              </button>
+            </div>
           </div>
           <div id="successful-word-list" style="display: flex; flex-wrap: wrap;"></div>
         </div>
@@ -98,7 +103,7 @@
                 <b>Text color: </b><input type="color" id="font-color" value="#000000">
               </div>
             </div>
-            <div class="col-12">
+            <div class="col-12 word-image-controls">
               <div style="margin-top: 20px; margin-left: 10px;">
                 <label>
                   <input type="checkbox" id="word-on-image" checked>
@@ -106,7 +111,7 @@
                 </label>
               </div>
             </div>
-            <div class="col-12">
+            <div class="col-12 word-image-controls">
               <div class="row">
                 <div class="col-12">
                   <div style="margin-left: 10px;">

@@ -93,6 +93,9 @@ function submitCaptionGeneration() {
     if (results.length > 0) {
       selectedCaptionResult = results[Math.floor(Math.random() * results.length)];
       drawMemeWithCaption(selectedCaptionResult.caption, selectedCaptionResult.word);
+      Array.from(document.getElementsByClassName('word-image-controls')).forEach(element => {
+        element.hidden = false;
+      });
 
       const wordList = document.getElementById('successful-word-list');
       wordList.innerHTML = '';
@@ -105,9 +108,19 @@ function submitCaptionGeneration() {
           .addEventListener("click", () => {
             selectedCaptionResult = result;
             drawMemeWithCaption(selectedCaptionResult.caption, selectedCaptionResult.word);
+            Array.from(document.getElementsByClassName('word-image-controls')).forEach(element => {
+              element.hidden = false;
+            });
           });
         wordList.appendChild(button);
       });
+      document.getElementById('original-caption-button')
+        .addEventListener("click", () => {
+          Array.from(document.getElementsByClassName('word-image-controls')).forEach(element => {
+            element.hidden = true;
+          });
+          drawMemeWithCaption(`${prefix}${originalCaption}${postfix}`, '');
+        });
     }
   });
 }
@@ -163,7 +176,8 @@ function drawMemeWithCaption(caption, originalWord) {
     lines.push(nextLine);
 
     lines.forEach((line, i) => {
-      context.fillText(lines[i], textPaddingHorizontal,
+      // TODO: account for trimming earlier?
+      context.fillText(lines[i].trim(), textPaddingHorizontal,
         canvas.height - ((lines.length - i) * lineHeight));
     });
   };
