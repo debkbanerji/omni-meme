@@ -65,10 +65,9 @@ function submitCaptionGeneration() {
 
       return {
         word,
-        caption: `${prefix}${blackedOutText.replace(UNDERSCORE_CHAR, BLACKOUT_CHAR)}${postfix}`
+        caption: `${prefix}${blackedOutText.replaceAll(UNDERSCORE_CHAR, BLACKOUT_CHAR)}${postfix}`
       };
     });
-    console.log(results);
     loadingComponent.hidden = true;
     enableInteraction();
 
@@ -91,6 +90,8 @@ function drawMemeWithCaption(caption) {
     canvas.width = img.width;
     canvas.height = img.height;
     context.drawImage(img, 0, 0, img.width, img.height);
+
+    console.log(caption);
   };
   img.src = imageURL;
 }
