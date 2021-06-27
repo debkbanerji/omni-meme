@@ -102,12 +102,19 @@
           <canvas id="main-meme-canvas" style="width: 100%"></canvas>
           <div class="row">
             <div class="col-12">
-              <div style="margin-top: 10px; margin-left: 10px;">
-                <b>Text color: </b><input type="color" id="font-color" value="#ffffff">
+              <div style="display: flex; justify-content: space-between; margin-top: 10px; margin-left: 10px; align-items: center;">
+                <div>
+                  <b>Text color: </b><input type="color" id="font-color" value="#ffffff">
+                </div>
+                <div>
+                  <button class="btn btn-sm btn-outline-secondary" type="button" id="copy-caption-button">
+                    Copy caption to clipboard
+                  </button>
+                </div>
               </div>
             </div>
             <div class="col-12 word-image-controls">
-              <div style="margin-top: 20px; margin-left: 10px;">
+              <div style="margin-top: 10px; margin-left: 10px;">
                 <label>
                   <input type="checkbox" id="word-on-image" checked>
                   Display Word on Image

@@ -135,6 +135,15 @@ document.getElementById("generate-memes")
 
 setTimeout(submitCaptionGeneration, 500); // run this after the page loads
 
+function copyToClipboard(textToCopy) {
+  const tempText = document.createElement("input");
+  tempText.value = textToCopy;
+  document.body.appendChild(tempText);
+  tempText.select();
+  document.execCommand("copy");
+  document.body.removeChild(tempText);
+}
+
 function drawMemeWithCaption(caption, originalWord) {
   const canvas = document.getElementById("main-meme-canvas");
   const context = canvas.getContext("2d");
@@ -180,6 +189,12 @@ function drawMemeWithCaption(caption, originalWord) {
       context.fillText(lines[i].trim(), textPaddingHorizontal,
         canvas.height - ((lines.length - i) * lineHeight));
     });
+
+    document
+      .getElementById("copy-caption-button")
+      .addEventListener("click", () => {
+        copyToClipboard(caption);
+      });
   };
   img.src = imageURL;
 
