@@ -88,23 +88,27 @@ function submitCaptionGeneration() {
     loadingComponent.hidden = true;
     enableInteraction();
 
-    // TODO: deal with the case when no captions are generated
-    selectedCaptionResult = results[Math.floor(Math.random() * results.length)];
-    drawMemeWithCaption(selectedCaptionResult.caption, selectedCaptionResult.word);
+    document.getElementById('no-valid-words-message').hidden = results.length > 0;
 
-    const wordList = document.getElementById('successful-word-list');
-    results.forEach(result => {
-      const button = document.createElement("button");
-      button.className = "btn btn-sm btn-outline-secondary";
-      button.style = "margin: 2px;"
-      button.innerHTML = result.word;
-      button
-        .addEventListener("click", () => {
-          selectedCaptionResult = result;
-          drawMemeWithCaption(selectedCaptionResult.caption, selectedCaptionResult.word);
-        });
-      wordList.appendChild(button);
-    });
+    if (results.length > 0) {
+      selectedCaptionResult = results[Math.floor(Math.random() * results.length)];
+      drawMemeWithCaption(selectedCaptionResult.caption, selectedCaptionResult.word);
+
+      const wordList = document.getElementById('successful-word-list');
+      wordList.innerHTML = '';
+      results.forEach(result => {
+        const button = document.createElement("button");
+        button.className = "btn btn-sm btn-outline-secondary";
+        button.style = "margin: 2px;"
+        button.innerHTML = result.word;
+        button
+          .addEventListener("click", () => {
+            selectedCaptionResult = result;
+            drawMemeWithCaption(selectedCaptionResult.caption, selectedCaptionResult.word);
+          });
+        wordList.appendChild(button);
+      });
+    }
   });
 }
 
@@ -164,6 +168,8 @@ function drawMemeWithCaption(caption, originalWord) {
     });
   };
   img.src = imageURL;
+
+  document.getElementById('no-valid-words-message').hidden = true;
 }
 
 [
