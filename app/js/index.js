@@ -1,7 +1,8 @@
 const BLACKOUT_CHAR = String.fromCharCode(parseInt('2588', 16));
 const UNDERSCORE_CHAR = '_';
 const URL_REGEX = new RegExp(/^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*$)/gi);
-
+const IMAGE_FONT_RATIO = 0.10
+const WORD_ON_IMAGE_FONT_SCALE = 1.4;
 
 const interactionSelectors = [...document.getElementsByTagName('input')]
   .concat([...document.getElementsByTagName('textarea')])
@@ -33,6 +34,8 @@ document
   .addEventListener("click", () => {
     templateImageSelectorHidden.click();
   });
+
+let selectedCaptionResult = {};
 
 function submitCaptionGeneration() {
   disableInteraction();
@@ -86,8 +89,8 @@ function submitCaptionGeneration() {
     enableInteraction();
 
     // TODO: deal with the case when no captions are generated
-    const resultToDisplay = results[Math.floor(Math.random() * results.length)];
-    drawMemeWithCaption(resultToDisplay.caption);
+    selectedCaptionResult = results[Math.floor(Math.random() * results.length)];
+    drawMemeWithCaption(selectedCaptionResult.caption, selectedCaptionResult.word);
   });
 }
 
@@ -96,7 +99,7 @@ document.getElementById("generate-memes")
 
 setTimeout(submitCaptionGeneration, 500); // run this after the page loads
 
-function drawMemeWithCaption(caption) {
+function drawMemeWithCaption(caption, originalWord) {
   const canvas = document.getElementById("main-meme-canvas");
   const context = canvas.getContext("2d");
   const img = new Image();
@@ -107,9 +110,21 @@ function drawMemeWithCaption(caption) {
 
     const textPaddingHorizontal = canvas.width * 0.03;
     const textPaddingVertical = textPaddingHorizontal;
-    const lineHeight = canvas.height / 10;
-    context.font = `${lineHeight}px Courier`;
+    const lineHeight = canvas.height * IMAGE_FONT_RATIO;
+    context.fillStyle = document.getElementById("font-color").value;
 
+    const wordXSelector = document.getElementById('word-position-x-slider');
+    const wordYSelector = document.getElementById('word-position-y-slider');
+    if (document.getElementById('word-on-image').checked) {
+      context.font = `${lineHeight*WORD_ON_IMAGE_FONT_SCALE}px Arial`;
+      context.fillText(
+        originalWord,
+        wordXSelector.value / wordXSelector.max * img.width,
+        wordYSelector.value / wordYSelector.max * img.height
+      );
+    }
+
+    context.font = `${lineHeight}px Arial`;
     const lines = [];
     let nextLine = '';
     caption.split('').forEach((c, i) => {
@@ -130,3 +145,25 @@ function drawMemeWithCaption(caption) {
   };
   img.src = imageURL;
 }
+
+[
+  'font-color',
+  'word-on-image',
+  'word-position-x-slider',
+  'word-position-y-slider'
+].forEach(id => {
+  document.getElementById(id)
+    .addEventListener("change", () =>
+      drawMemeWithCaption(selectedCaptionResult.caption, selectedCaptionResult.word)
+    );
+});
+
+document.getElementById('word-on-image')
+  .addEventListener("change", () => {
+    [
+      'word-position-x-slider',
+      'word-position-y-slider'
+    ].forEach(id => {
+      document.getElementById(id).hidden = !document.getElementById('word-on-image').checked;
+    });
+  });
