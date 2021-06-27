@@ -76,6 +76,14 @@
     </div>
 
     <div class="row">
+
+      <div class="col-12 col-md-6">
+        <div class="card" style="padding: 10px; margin-bottom: 10px">
+          <h3 style="margin-left: 4px;">Working Words</h3>
+          <div id="successful-word-list" style="display: flex; flex-wrap: wrap;"></div>
+        </div>
+      </div>
+
       <div class="col-12 col-md-6">
         <div class="card" style="padding: 10px; margin-bottom: 10px">
           <canvas id="main-meme-canvas" style="width: 100%"></canvas>
@@ -116,13 +124,6 @@
         </div>
       </div>
 
-      <div class="col-12 col-md-6">
-        <div class="card" style="padding: 10px; margin-bottom: 10px">
-          <h3 style="margin-left: 4px;">Working Words</h3>
-          <div id="successful-word-list" style="display: flex; flex-wrap: wrap;"></div>
-        </div>
-      </div>
-
       <div class="col-12">
         <div class="card" style="padding: 10px; margin-bottom: 10px">
           <h2 style="margin-bottom: 0; margin-left: 4px">Change Image/Text</h2>
@@ -147,13 +148,13 @@
               <div class="input-group-prepend">
                 <span class="input-group-text">Postfix</span>
               </div>
-              <input type="text" class="form-control" id="caption-input-postfix" placeholder="(Optional)" value="">
+              <input type="text" class="form-control" id="caption-input-postfix" placeholder="Optional" value="">
             </div>
             <div class="input-group mb-3" style="margin-top: 4px; margin-bottom: 2px !important; height: 100px">
               <div class="input-group-prepend">
-                <span class="input-group-text">Additional Replacement Words</span>
+                <span class="input-group-text">Additional Replacement Words<br />(One on each line)</span>
               </div>
-              <textarea type="text" class="form-control" placeholder="Optional" id="input-words-and-links">manpower</textarea>
+              <textarea type="text" class="form-control" placeholder="Optional" id="input-words-and-links"></textarea>
             </div>
             <small>
               A list of additional words that the algorithm will attempt to create from the meme caption (in addition to <a href="http://www.desiquintans.com/nounlist" target="_blank">those that the app uses by default</a>)<br />
