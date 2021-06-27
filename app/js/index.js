@@ -105,7 +105,28 @@ function drawMemeWithCaption(caption) {
     canvas.height = img.height;
     context.drawImage(img, 0, 0, img.width, img.height);
 
-    console.log(caption);
+    const textPaddingHorizontal = canvas.width * 0.03;
+    const textPaddingVertical = textPaddingHorizontal;
+    const lineHeight = canvas.height / 10;
+    context.font = `${lineHeight}px Courier`;
+
+    const lines = [];
+    let nextLine = '';
+    caption.split('').forEach((c, i) => {
+      const lineWidth = context.measureText(nextLine + c).width;
+      if (lineWidth + 2 * textPaddingHorizontal > canvas.width) {
+        lines.push(nextLine);
+        nextLine = '';
+      } else {
+        nextLine = nextLine + c;
+      }
+    });
+    lines.push(nextLine);
+
+    lines.forEach((line, i) => {
+      context.fillText(lines[i], textPaddingHorizontal,
+        canvas.height - ((lines.length - i) * lineHeight));
+    });
   };
   img.src = imageURL;
 }
