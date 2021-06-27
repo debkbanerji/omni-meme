@@ -108,6 +108,12 @@ function submitCaptionGeneration() {
   });
 }
 
+document.getElementById("random-caption-button")
+  .addEventListener("click", () => {
+    const buttons = document.getElementById('successful-word-list').children;
+    buttons[Math.floor(Math.random() * buttons.length)].click();
+  });
+
 document.getElementById("generate-memes")
   .addEventListener("click", submitCaptionGeneration);
 
