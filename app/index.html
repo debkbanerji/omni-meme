@@ -102,32 +102,29 @@
               <div class="input-group-prepend">
                 <span class="input-group-text">Prefix</span>
               </div>
-              <input type="text" class="form-control" placeholder="Optional" value="Look ">
+              <input type="text" class="form-control" id="caption-input-prefix" placeholder="Optional" value="Look ">
             </div>
             <div class="input-group mb-3" style="margin-top: 4px">
               <div class="input-group-prepend">
                 <span class="input-group-text">Caption</span>
               </div>
-              <input type="text" class="form-control" placeholder="The original meme's caption" value="what they need to mimic a fraction of our power">
+              <input type="text" class="form-control" id="caption-input" placeholder="The original meme's caption" value="what they need to mimic a fraction of our power">
             </div>
             <div class="input-group mb-3" style="margin-top: 4px">
               <div class="input-group-prepend">
                 <span class="input-group-text">Postfix</span>
               </div>
-              <input type="text" class="form-control" placeholder="Optional" value="">
+              <input type="text" class="form-control" id="caption-input-postfix" placeholder="Optional" value="">
             </div>
             <div class="input-group mb-3" style="margin-top: 4px; margin-bottom: 2px !important; height: 100px">
               <div class="input-group-prepend">
-                <span class="input-group-text">Replacement Words/Links</span>
+                <span class="input-group-text">Additional Replacement Words</span>
               </div>
-              <textarea type="text" class="form-control" placeholder="Optional">
-http://www.desiquintans.com/downloads/nounlist/nounlist.txt
-manpower
-              </textarea>
+              <textarea type="text" class="form-control" placeholder="Optional" id="input-words-and-links">manpower</textarea>
             </div>
             <small>
-              A list of words that the algorithm will attempt to create from the meme caption<br />
-              You can also provide a url for a text file filled with words<br />
+              A list of additional words that the algorithm will attempt to create from the meme caption (in addition to <a href="http://www.desiquintans.com/nounlist" target="_blank">those that the app uses by default</a>)<br />
+              <!-- You can also provide a url for a .txt file filled with words<br /> -->
               Each line is treated as its own word
             </small>
           </div>
