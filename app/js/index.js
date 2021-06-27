@@ -141,11 +141,11 @@ function drawMemeWithCaption(caption, originalWord) {
     context.font = `${lineHeight}px Arial`;
     const lines = [];
     let nextLine = '';
-    caption.split('').forEach((c, i) => {
+    caption.split('').forEach(c => {
       const lineWidth = context.measureText(nextLine + c).width;
       if (lineWidth + 2 * textPaddingHorizontal > canvas.width) {
         lines.push(nextLine);
-        nextLine = '';
+        nextLine = '' + c;
       } else {
         nextLine = nextLine + c;
       }
